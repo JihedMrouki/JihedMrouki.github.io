@@ -40,17 +40,18 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return BackgroundWidget(
       child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: const Text(
-              "Jihed Mrouki",
-              style: TextStyle(
-                color: Colors.white,
-              ),
+          title: const Text(
+            "LandingPage(): Jihed Mrouki",
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
-          body: const MainScreen()),
+        ),
+        body: const MainScreen(),
+      ),
     );
   }
 }

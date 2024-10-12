@@ -3,7 +3,7 @@ class Assets {
   //// Socials icons
   /// url : https://icons8.com/icons/set/social-media
 
-  final String githubDark = "assets/icons/socials/sGithub-dark.svg";
+  final String githubDark = "assets/icons/socials/Github-dark.svg";
   final String githubLight = "assets/icons/socials/Github-light.svg";
   final String linkedinDark = "assets/icons/socials/Linkedin-dark.svg";
   final String linkedinLight = "assets/icons/socials/Linkedin-light.svg";
