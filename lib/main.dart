@@ -1,9 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:jihedmrouki_flutter_landing_page/animated_background.dart';
 import 'package:jihedmrouki_flutter_landing_page/views/main_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
