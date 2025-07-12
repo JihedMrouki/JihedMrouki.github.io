@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
-
 import 'package:jihedmrouki_flutter_landing_page/utils/assets.dart';
+import 'package:jihedmrouki_flutter_landing_page/utils/context_extension.dart';
+import 'package:jihedmrouki_flutter_landing_page/utils/sizer.dart';
+import 'package:jihedmrouki_flutter_landing_page/views/sections/about_section.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MainScreen extends StatelessWidget {
@@ -10,165 +11,65 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double cHeight = 50;
-    const double cWidth = 50;
-    final assets = Assets();
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(left: 42, right: 42, top: 38),
-            child: Container(
-              height: cHeight,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(45),
-                color: Colors.white.withOpacity(0.05),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: GestureDetector(
-                      onTap: () => launchUrl(
-                        // doesnt work with mobile, needs config
-                        Uri.parse(
-                          'https://www.linkedin.com/in/jihed-mrouki/',
-                        ),
-                      ),
-                      child: SvgPicture.asset(
-                        assets.linkedinDark,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  // Spacer(),
-                  SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: GestureDetector(
-                      onTap: () => launchUrl(
-                        // doesnt work with mobile, needs config
-                        Uri.parse(
-                          'https://twitter.com/JihedMroukiDev',
-                        ),
-                      ),
-                      child: SvgPicture.asset(
-                        assets.xLight,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: GestureDetector(
-                      onTap: () => launchUrl(
-                        // doesnt work with mobile, needs config
-                        Uri.parse(
-                          'https://medium.com/@jihed.mrouki',
-                        ),
-                      ),
-                      child: SvgPicture.asset(
-                        assets.mediumDark,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                    width: 30,
-                    child: GestureDetector(
-                      onTap: () => launchUrl(
-                        // doesnt work with mobile, needs config
-                        Uri.parse(
-                          'https://github.com/JihedMrouki/',
-                        ),
-                      ),
-                      child: SvgPicture.asset(
-                        assets.githubDark,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+    return ListView(
+      children: <Widget>[
+        _buildSocialLinksBar(context),
+
+        AboutSection(),
+        // CareerSection(),
+        // ProjectsSection(),
+        // ContactSection(),
+        SizedBox(height: 40.h(context)),
+      ],
+    );
+  }
+
+  /// Helper method to build the social links bar for a cleaner build method.
+  Widget _buildSocialLinksBar(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: 42.w(context),
+        vertical: 38.h(context),
+      ),
+      child: Container(
+        height: 50.h(context),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(45.sp(context)),
+          // Using the theme's cardColor makes it adaptive.
+          color: context.theme.cardColor,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _socialIcon(context, Assets.linkedinDark,
+                'https://www.linkedin.com/in/jihed-mrouki/'),
+            _socialIcon(
+                context, Assets.xLight, 'https://twitter.com/JihedMroukiDev'),
+            _socialIcon(
+                context, Assets.mediumDark, 'https://medium.com/@jihed.mrouki'),
+            _socialIcon(
+                context, Assets.githubDark, 'https://github.com/JihedMrouki/'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Helper for creating a single social icon to avoid code repetition.
+  Widget _socialIcon(BuildContext context, String assetPath, String url) {
+    return SizedBox(
+      height: 30.sp(context),
+      width: 30.sp(context),
+      child: GestureDetector(
+        onTap: () => launchUrl(Uri.parse(url)),
+        child: SvgPicture.asset(
+          assetPath,
+          colorFilter: ColorFilter.mode(
+            context.theme.colorScheme.onSurface,
+            BlendMode.srcIn,
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 40,
-            ),
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(45),
-                    topRight: Radius.circular(45),
-                    bottomLeft: Radius.circular(45),
-                    bottomRight: Radius.circular(45),
-                  ),
-                  color: Colors.white.withOpacity(0.05),
-                ),
-                height: MediaQuery.of(context).size.height * 0.7,
-                width: MediaQuery.of(context).size.width * 0.99,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 40,
-            ),
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(45),
-                    topRight: Radius.circular(45),
-                    bottomLeft: Radius.circular(45),
-                    bottomRight: Radius.circular(45),
-                  ),
-                  color: Colors.white.withOpacity(0.05),
-                ),
-                height: MediaQuery.of(context).size.height * 0.7,
-                width: MediaQuery.of(context).size.width * 0.99,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 40,
-            ),
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(45),
-                    topRight: Radius.circular(45),
-                    bottomLeft: Radius.circular(45),
-                    bottomRight: Radius.circular(45),
-                  ),
-                  color: Colors.white.withOpacity(0.05),
-                ),
-                height: MediaQuery.of(context).size.height * 0.7,
-                width: MediaQuery.of(context).size.width * 0.99,
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          )
-        ],
+        ),
       ),
     );
   }
